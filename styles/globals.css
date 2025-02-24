@@ -19,3 +19,38 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+.eye-container {
+  width: 100px;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.eye {
+  width: 100px;
+  height: 50px;
+  background: white;
+  border: 2px solid #000;
+  border-radius: 50%;
+  position: relative;
+  animation: blink 4s infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pupil {
+  width: 20px;
+  height: 20px;
+  background: #000;
+  border-radius: 50%;
+  position: absolute;
+}
+
+@keyframes blink {
+  0%, 96%, 98% {
+    transform: scaleY(1);
+  }
+  97% {
+    transform: scaleY(0.1);
+  }
+}
