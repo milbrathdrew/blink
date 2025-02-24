@@ -30,7 +30,7 @@ export default function Home() {
           <BlinkingEye />
         </div>
         <p className="text-xl mt-4">
-          Since your last visit, you've probably blinked about:
+          Since your last visit, you&apos;ve probably blinked about:
         </p>
         <p className="text-6xl font-bold my-4">{estimatedBlinks}</p>
         <p className="text-lg">times!</p>
