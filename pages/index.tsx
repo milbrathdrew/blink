@@ -1,31 +1,35 @@
+// pages/index.tsx
 import { useEffect, useState } from 'react'
+import BlinkingEye from '../components/BlinkingEye'
 
 export default function Home() {
   const [estimatedBlinks, setEstimatedBlinks] = useState<number>(0)
-  const BLINKS_PER_MINUTE = 17 // Average human blink rate
 
   useEffect(() => {
-    const calculateBlinks = () => {
-      const lastVisit = localStorage.getItem('lastVisit')
-      const now = new Date().getTime()
-      
-      if (lastVisit) {
-        const timeDiff = now - parseInt(lastVisit)
-        const minutesPassed = timeDiff / (1000 * 60)
-        setEstimatedBlinks(Math.round(minutesPassed * BLINKS_PER_MINUTE))
-      }
-      
-      localStorage.setItem('lastVisit', now.toString())
+    // Get the last visit time from localStorage
+    const lastVisit = localStorage.getItem('lastVisit')
+    const currentTime = new Date().getTime()
+
+    if (lastVisit) {
+      const timeDifference = currentTime - parseInt(lastVisit)
+      const minutesPassed = timeDifference / (1000 * 60)
+      // Average person blinks 15-20 times per minute
+      const estimatedBlinks = Math.round(minutesPassed * 17)
+      setEstimatedBlinks(estimatedBlinks)
     }
 
-    calculateBlinks()
+    // Update the last visit time
+    localStorage.setItem('lastVisit', currentTime.toString())
   }, [])
 
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
         <h1 className="text-4xl font-bold mb-4">Blink Estimator</h1>
-        <p className="text-xl">
+        <div className="w-24 h-24 mx-auto">
+          <BlinkingEye />
+        </div>
+        <p className="text-xl mt-4">
           Since your last visit, you've probably blinked about:
         </p>
         <p className="text-6xl font-bold my-4">{estimatedBlinks}</p>

@@ -19,38 +19,87 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .eye-container {
   width: 100px;
   height: 50px;
   margin: 0 auto;
+  position: relative;
+  padding-top: 20px; /* Make room for eyelashes */
+}
+
+.eyelashes {
+  position: relative;
+}
+
+.eyelashes::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 10px;
+  height: 15px;
+  width: 2px;
+  background: black;
+  box-shadow: 
+    20px 2px 0 black,  /* First lash */
+    40px 0 0 black,    /* Second lash */
+    60px 2px 0 black,  /* Third lash */
+    80px 0 0 black;    /* Fourth lash */
+  transform-origin: bottom;
+  animation: lashBlink 4s ease-in-out infinite;
 }
 
 .eye {
   width: 100px;
   height: 50px;
   background: white;
-  border: 2px solid #000;
+  border: 4px solid #000;
   border-radius: 50%;
   position: relative;
-  animation: blink 4s infinite;
+  animation: blink 4s ease-in-out infinite;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .pupil {
   width: 20px;
   height: 20px;
-  background: #000;
+  background: black;
   border-radius: 50%;
   position: absolute;
+  animation: look 5s ease-in-out infinite;
 }
 
 @keyframes blink {
-  0%, 96%, 98% {
+  0%, 45%, 55%, 100% {
     transform: scaleY(1);
   }
-  97% {
+  50% {
     transform: scaleY(0.1);
+  }
+}
+
+@keyframes lashBlink {
+  0%, 45%, 55%, 100% {
+    transform: scaleY(1) rotate(-10deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleY(0) rotate(-10deg);
+    opacity: 0;
+  }
+}
+
+@keyframes look {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(15px);
+  }
+  75% {
+    transform: translateX(-15px);
   }
 }
